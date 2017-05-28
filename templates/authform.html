@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Baykal Tur</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 500px;
+        width: 1000px; /* Ширина элемента в пикселах */
+        margin: auto; /* Выравниваем по центру */
+        margin-top: 8%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        width: 100%;
+        overflow: auto;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <style>
+   body {
+    background: url(https://pp.userapi.com/c639229/v639229359/2273c/4s4hhdCaz3M.jpg) no-repeat;
+    -moz-background-size: 100%; /* Firefox 3.6+ */
+    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+    overflow: auto;
+    -o-background-size: 100%; /* Opera 9.6+ */
+    background-size: 100%; /* Современные браузеры */
+   }
+  </style>
+    <style>
+      h1 { text-align:center; }
+      p.date { text-align:right; }
+      p.main { text-align:justify; } /*значение justify растягивание текста по ширине*/
+      p { text-indent:10px; } /*задаем размер отступа для первой строки абзаца*/
+    </style>
+</head>
+<body>
+<h1>Шагаем по Бурятии</h1>
+<p align="center">Путиводитель по Бурятии</p>
+
+<!--<form action="/authform" method="POST">-->
+    <!--Login: <input type="text" name="login"/>-->
+    <!--<input type="submit" value="Ok">-->
+<!--</form>-->
+
+<!--<p>Last русс login: ${lastLogin}</p>-->
+
+<div class = "centr"></div>
+    <div id="map"></div>
+    <script>
+          var map;
+          var marker;
+          function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: 51.834791, lng: 107.584741},
+              zoom: 16
+            });
+            var plString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Площадь Советов (Улан-Удэ)</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Пло́щадь Сове́тов </b>— парадная, центральная площадь города Улан-Удэ.Нагорная площадь старого Верхнеудинска.'+
+            '<br>в 1970—1971 году был установлен памятник В. И. Ленину. Скульпторы Г. В Нерода, Ю. Г. Нерода, архитекторы А. Н.'+
+            'Душкин, П. Г. Зильберман. Вес памятника 42 тонны, высота 13,5 метров.'+
+            '<br>В 2006 была восстановлена арка посвященная прибытию цесаревича Николая Александровича 20 — 21 июня 1891 года по'+
+            'старым чертежам, но уже в камне, практически на прежнем месте. Арку снесли в 1936 году.'+
+'<p style="text-align: center"><button><img src="http://icon-icons.com/icons2/764/PNG/512/red-eye_icon-icons.com_64464.png" width="50" height="50" alt="просмотр"style="vertical-align: middle">Пройтись онлайн</button>'+
+            '<button><img src="https://openclipart.org/image/2400px/svg_to_png/250266/1464710523.png" width="50" height="50" alt="просмотр"style="vertical-align: middle">Добавить в маршрут</button></p>'+            '</div>'+
+            '</div>';
+
+            var teatrString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Бурятский театр оперы и балета имени Г. Ц. Цыдынжапова ул.Ленина 51</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Буря́тский ордена Ле́нина госуда́рственный академи́ческий теа́тр о́перы и бале́та имени Г. Ц. Цыдынжа́пова</b>,'+
+            '— музыкальный театр в г. Улан-Удэ. Открыт в 1939 году.' +
+            '<br>Здание театра является памятником архитектуры федерального значения.'+
+            'Здание строилось с 1945 года по 1952 год Сталинский ампир с национальными декоративными элементами.'+
+           '<p style="text-align: center"><button><img src="http://icon-icons.com/icons2/764/PNG/512/red-eye_icon-icons.com_64464.png" width="50" height="50" alt="просмотр"style="vertical-align: middle">Пройтись онлайн</button>'+
+            '<button><img src="https://openclipart.org/image/2400px/svg_to_png/250266/1464710523.png" width="50" height="50" alt="просмотр"style="vertical-align: middle">Добавить в маршрут</button></p>'+
+            '</div>'+
+            '</div>';
+            var filString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Бурятская государственная филармония расположена в историческом центре города Улан-Удэ. Ул. Ербанова д.6</h1>'+
+            '<div id="bodyContent">'+
+            '19 марта 1938 года Совет Народных Комиссаров Бурят-Монгольской АССР принял Постановление № 174 «Об организации Бурят-Монгольской государственной филармонии»'+
+            'Сегодня Бурятская государственная филармония – это 100 концертов в сезон, около'+
+            '30 тысяч ежегодно обслуживаемых зрителей. Это фестивали, конкурсы, музыкальные праздники.'+
+            'Камерные концерты, выступления российских музыкантов и вокалистов с мировыми именами.' +
+            'Это знакомство жителей республики с лучшими произведениями русской и западноевропейской'+
+            'классики, современного искусства, фольклора и народного творчества, музыки бурятских композиторов.'+
+            '<p style="text-align: center"><button><img src="http://icon-icons.com/icons2/764/PNG/512/red-eye_icon-icons.com_64464.png" width="50" height="50" alt="просмотр"style="vertical-align: middle">Пройтись онлайн</button>'+
+            '<button><img src="https://openclipart.org/image/2400px/svg_to_png/250266/1464710523.png" width="50" height="50" alt="просмотр"style="vertical-align: middle">Добавить в маршрут</button></p>'+
+            '</div>'+
+            '</div>';
+
+
+            marker1 = new google.maps.Marker({
+                position: {lat: 51.834791, lng: 107.584741},
+                map: map,
+                title: "Площадь советов "
+            });
+            var infowindow1 = new google.maps.InfoWindow({
+               content: plString
+             });
+            marker1.addListener('click', function() {
+                infowindow1.open(map, marker1);
+            });
+
+            marker2 = new google.maps.Marker({
+                position: {lat: 51.833400, lng: 107.585490},
+                map: map,
+                title: "Филармония "
+            });
+            var infowindow2 = new google.maps.InfoWindow({
+               content: filString
+             });
+            marker2.addListener('click', function() {
+                infowindow2.open(map, marker2);
+            });
+
+            marker3 = new google.maps.Marker({
+                position: {lat: 51.833516,  lng: 107.583323},
+                map: map,
+                title: "Театр оперы и балета "
+            });
+            var infowindow3 = new google.maps.InfoWindow({
+               content: teatrString
+             });
+            marker3.addListener('click', function() {
+                infowindow3.open(map, marker3);
+            });
+          }
+   </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAitBmUkXXXYZnhbr5JI5Q9mb6TLIjs310&callback=initMap"
+          async defer></script>
+
+</body>
+<footer>
+    <div class="footer-bg">
+        <br><p align="center">Cайт разработан в рамках хакатона</p>><p align="center"><h1>HiveTime 26-28 мая</h1></p>
+    </div>
+</footer>
+</html>
+
